@@ -1,6 +1,7 @@
 node {
   def commit_id
   def app
+  def tag
 
   stage('Checkout source') {
     checkout scm
@@ -14,11 +15,11 @@ node {
 
   stage('Push image') {
     sh 'docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD'
-    def tag = "${env.BRANCH_NAME}-${commit_id}"
+    tag = "${env.BRANCH_NAME}-${commit_id}"
     app.push "${tag}"
   }
 
   stage('Deploy to cluster') {
-    sh 'kubectl get pods'
+    sh "kubectl --namespace ccatlett2000 set image deployment site-chat-server site-chat-server=mafiascum/site-chat-server:${tag}"
   }
 }
