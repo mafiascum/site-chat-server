@@ -1,4 +1,4 @@
-node {
+node('basic') {
   def commit_id
   def app
   def tag
