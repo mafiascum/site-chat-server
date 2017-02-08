@@ -14,7 +14,9 @@ node('basic') {
   }
 
   stage('Push image') {
-    sh 'docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD'
+    withCredentials([string(credentialsId: 'docker-hub-password', variable: 'DOCKER_HUB_PASSWORD')]) {
+      sh 'docker login --username ccatlett2000 --password $DOCKER_HUB_PASSWORD'
+    }
     tag = "${env.BRANCH_NAME}-${commit_id}"
     app.push "${tag}"
   }
