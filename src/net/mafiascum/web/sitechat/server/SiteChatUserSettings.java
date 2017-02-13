@@ -18,14 +18,14 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
   public static final String ANIMATE_AVATARS_COLUMN = "animate_avatars";
   public static final String TIMESTAMP_FORMAT_COLUMN = "timestamp_format";
   public static final String INVISIBLE_COLUMN = "invisible";
-  public static final String EMOJI_COLUMN = "emoji";
+  public static final String EMOJI_COLUMN = "disable_emoji";
   
   protected int userId;
   protected boolean compact;
   protected boolean animateAvatars;
   protected String timestampFormat;
   protected boolean invisible;
-  protected boolean emoji;
+  protected boolean disable_emoji;
   
   boolean isNew;
 
@@ -75,10 +75,10 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     this.invisible = invisible;
   }
   public boolean getEmoji() {
-    return emoji;
+    return disable_emoji;
   }
   public void setEmoji(boolean emoji) {
-    this.emoji = emoji;
+    this.disable_emoji = emoji;
   }
   
   public void loadFromResultSet(ResultSet resultSet) throws SQLException {
