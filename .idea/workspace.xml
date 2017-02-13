@@ -62,18 +62,6 @@
       <projects_view />
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatUserSettings.java" />
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java" />
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/user/UserManager.java" />
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/inboundpacket/operator/SiteChatInboundSetUserSettingsPacketOperator.java" />
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/inboundpacket/SiteChatInboundSetUserSettingsPacket.java" />
-        <option value="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/inboundpacket/operator/SiteChatInboundLogInPacketOperator.java" />
-      </list>
-    </option>
-  </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
