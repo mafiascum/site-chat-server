@@ -24,7 +24,7 @@ node('basic') {
 
   stage('Deploy to cluster') {
     milestone()
-    slackSend teamDomain: 'mafiascum', tokenCredentialId: 'mafiascum-slack-token', color: 'good', message: "*[Site Chat Server]* Commit `${commit_id}` deployed to development"
     sh "kubectl --namespace ccatlett2000 set image deployment site-chat-server site-chat-server=mafiascum/site-chat-server:${tag}"
+    slackSend teamDomain: 'mafiascum', tokenCredentialId: 'mafiascum-slack-token', color: 'good', message: "*[Site Chat Server]* Commit `${commit_id}` deployed to staging"
   }
 }
