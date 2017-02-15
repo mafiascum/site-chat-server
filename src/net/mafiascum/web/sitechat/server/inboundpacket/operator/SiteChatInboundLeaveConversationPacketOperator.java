@@ -26,6 +26,7 @@ public class SiteChatInboundLeaveConversationPacketOperator extends SiteChatInbo
     SiteChatConversationWithUserList siteChatConversationWithUserList;
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     
     siteChatConversationWithUserList = processor.getSiteChatConversationWithUserList(siteChatInboundLeaveConversationPacket.getSiteChatConversationId());
     

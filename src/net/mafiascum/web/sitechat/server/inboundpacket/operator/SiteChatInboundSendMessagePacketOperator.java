@@ -33,6 +33,7 @@ public class SiteChatInboundSendMessagePacketOperator extends SiteChatInboundSig
     SiteChatUser siteChatRecipientUser = null;
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     
     if(sendMessagePacket.getSiteChatConversationId() != null) {
       logger.debug("Site Chat Conversatin ID: " + sendMessagePacket.getSiteChatConversationId());

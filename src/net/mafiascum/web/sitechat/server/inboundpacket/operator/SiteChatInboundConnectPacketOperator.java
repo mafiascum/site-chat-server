@@ -25,6 +25,7 @@ public class SiteChatInboundConnectPacketOperator extends SiteChatInboundSignedI
     SiteChatConversationWithUserList siteChatConversationWithUserList;
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     
     String siteChatConversationName = siteChatInboundConnectPacket.getSiteChatConversationName();
     

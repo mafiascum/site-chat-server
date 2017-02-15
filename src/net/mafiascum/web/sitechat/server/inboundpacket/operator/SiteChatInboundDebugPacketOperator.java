@@ -26,6 +26,7 @@ public class SiteChatInboundDebugPacketOperator extends SiteChatInboundSignedInP
     SiteChatUser targetUser = processor.getSiteChatUser(debugPacket.getUsername());
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     
     if(targetUser == null) {
       logger.error("Invalid user `" + debugPacket.getUsername() + "`.");

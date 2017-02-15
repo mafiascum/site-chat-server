@@ -19,6 +19,9 @@ public class SiteChatInboundSetIgnorePacketOperator extends SiteChatInboundSigne
     
     SiteChatInboundSetIgnorePacket setIgnorePacket = new Gson().fromJson(siteChatInboundPacketJson, SiteChatInboundSetIgnorePacket.class);
     
+    processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
+    
     UserData ignoredUserData = null;
     
     if(setIgnorePacket.ignoredUserId != null)

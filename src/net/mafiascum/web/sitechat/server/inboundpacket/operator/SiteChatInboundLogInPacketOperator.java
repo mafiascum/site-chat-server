@@ -49,6 +49,7 @@ public class SiteChatInboundLogInPacketOperator extends SiteChatInboundPacketOpe
     }
     
     processor.updateUserActivity(siteChatUser.getId());
+    processor.updateUserNetworkActivity(siteChatUser.getId());
     
     userId = siteChatUser.getId();
     

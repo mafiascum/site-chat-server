@@ -24,6 +24,7 @@ public class SiteChatInboundSetPasswordPacketOperator extends SiteChatInboundSig
     SiteChatInboundSetPasswordPacket packet = new Gson().fromJson(siteChatInboundPacketJson, SiteChatInboundSetPasswordPacket.class);
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     String error = null;
     
     try {

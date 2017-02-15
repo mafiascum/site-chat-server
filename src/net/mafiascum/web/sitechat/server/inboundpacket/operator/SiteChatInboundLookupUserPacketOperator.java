@@ -24,6 +24,7 @@ public class SiteChatInboundLookupUserPacketOperator extends SiteChatInboundSign
     logger.debug("LookupUser Packet. User ID: " + siteChatInboundLookupUserPacket.getUserId());
     
     processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
     
     //Create the response
     SiteChatOutboundLookupUserPacket siteChatOutboundLookupUserPacket = new SiteChatOutboundLookupUserPacket();

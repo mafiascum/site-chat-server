@@ -32,6 +32,9 @@ public class SiteChatInboundLoadMessagesPacketOperator extends SiteChatInboundSi
     int uniqueIdentifier = siteChatUtil.getConversationUniqueIdentifier(packet.getConversationKey());
     SiteChatOutboundLoadMessagesPacket outboundPacket = new SiteChatOutboundLoadMessagesPacket();
     
+    processor.updateUserActivity(user.getId());
+    processor.updateUserNetworkActivity(user.getId());
+    
     List<SiteChatConversationMessage> messages = null;
     boolean hasError = true;
     

@@ -27,6 +27,8 @@ public class SiteChatInboundDebugResultPacketOperator extends SiteChatInboundSig
     logger.info("Debug Result. ID: " + resultPacket.getId() + ", Result: " + resultPacket.getResult() + ", User ID: " + user.getId());
     DebugManager debugManager = processor.getDebugManager();
     
+    processor.updateUserNetworkActivity(user.getId());
+    
     DebugEntry entry = debugManager.getEntry(resultPacket.getId());
     
     if(entry == null) {
