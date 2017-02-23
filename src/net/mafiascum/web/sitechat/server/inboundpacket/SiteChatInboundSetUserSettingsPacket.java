@@ -7,6 +7,7 @@ public class SiteChatInboundSetUserSettingsPacket extends SiteChatInboundPacket 
   protected String timestamp;
   protected boolean invisible;
   protected boolean emoji;
+  protected int sort;
   
   public boolean getCompact() {
     return compact;
@@ -51,5 +52,13 @@ public class SiteChatInboundSetUserSettingsPacket extends SiteChatInboundPacket 
 
   public void setEmoji(boolean emoji) {
     this.emoji = emoji;
+  }
+
+  public int getSort() {
+    return sort;
+  }
+
+  public void setSort(int sort) {
+    this.sort = sort;
   }
 }

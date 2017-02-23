@@ -182,7 +182,7 @@ public class UserManager {
     return userList;
   }
   
-  public void setUserSettings(int userId, boolean compact, boolean animateAvatars, boolean invisible, String timestampFormat, boolean emoji) throws SQLException {
+  public void setUserSettings(int userId, boolean compact, boolean animateAvatars, boolean invisible, String timestampFormat, boolean emoji, int sort) throws SQLException {
     QueryUtil.get().executeConnectionNoResult(provider, connection -> {
         
       UserData userData = getUser(userId);
@@ -203,6 +203,7 @@ public class UserManager {
       settings.setTimestampFormat(timestampFormat);
       settings.setInvisible(invisible);
       settings.setEmoji(emoji);
+      settings.setSortOption(sort);
       
       saveUserSettings(settings);
     });
