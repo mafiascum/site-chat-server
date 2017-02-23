@@ -15,6 +15,6 @@ public class SiteChatInboundSetUserSettingsPacketOperator extends SiteChatInboun
     processor.updateUserNetworkActivity(user.getId());
     
     SiteChatInboundSetUserSettingsPacket setUserSettingsPacket = new Gson().fromJson(siteChatInboundPacketJson, SiteChatInboundSetUserSettingsPacket.class);
-    processor.setUserSettings(user.getId(), setUserSettingsPacket.getCompact(), setUserSettingsPacket.getAnimateAvatars(), setUserSettingsPacket.getInvisible(), setUserSettingsPacket.getTimestamp(), setUserSettingsPacket.getEmoji());
+    processor.setUserSettings(user.getId(), setUserSettingsPacket.getCompact(), setUserSettingsPacket.getAnimateAvatars(), setUserSettingsPacket.getInvisible(), setUserSettingsPacket.getTimestamp(), setUserSettingsPacket.getEmoji(), setUserSettingsPacket.getSort());
   }
 }

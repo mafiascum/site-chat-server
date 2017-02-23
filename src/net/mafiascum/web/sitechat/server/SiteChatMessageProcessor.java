@@ -811,8 +811,8 @@ public class SiteChatMessageProcessor implements SignalHandler{
     userManager.updateUserNetworkActivity(userId);
   }
   
-  public void setUserSettings(int userId, boolean compact, boolean animateAvatars, boolean invisible, String timestampFormat, boolean emoji) throws SQLException {
-    userManager.setUserSettings(userId, compact, animateAvatars, invisible, timestampFormat, emoji);
+  public void setUserSettings(int userId, boolean compact, boolean animateAvatars, boolean invisible, String timestampFormat, boolean emoji, int sort) throws SQLException {
+    userManager.setUserSettings(userId, compact, animateAvatars, invisible, timestampFormat, emoji, sort);
   }
 
   public SiteChatUtil getSiteChatUtil() {

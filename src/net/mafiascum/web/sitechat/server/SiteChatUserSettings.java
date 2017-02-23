@@ -19,6 +19,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
   public static final String TIMESTAMP_FORMAT_COLUMN = "timestamp_format";
   public static final String INVISIBLE_COLUMN = "invisible";
   public static final String EMOJI_COLUMN = "disable_emoji";
+  public static final String SORTOPTION_COLUMN = "sort_option";
   
   protected int userId;
   protected boolean compact;
@@ -26,6 +27,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
   protected String timestampFormat;
   protected boolean invisible;
   protected boolean disable_emoji;
+  protected int sort_option;
   
   boolean isNew;
 
@@ -36,6 +38,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     setTimestampFormat("");
     setInvisible(false);
     setEmoji(false);
+    setSortOption(0);
   }
   
   public boolean isNew() {
@@ -80,6 +83,12 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
   public void setEmoji(boolean emoji) {
     this.disable_emoji = emoji;
   }
+  public int getSortOption() {
+    return sort_option;
+  }
+  public void setSortOption(int sortOption) {
+    this.sort_option = sortOption;
+  }
   
   public void loadFromResultSet(ResultSet resultSet) throws SQLException {
     setIsNew(false);
@@ -92,6 +101,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     setTimestampFormat(resultSet.getString(TIMESTAMP_FORMAT_COLUMN));
     setInvisible(queryUtil.getIntBoolean(resultSet, INVISIBLE_COLUMN));
     setEmoji(queryUtil.getIntBoolean(resultSet, EMOJI_COLUMN));
+    setSortOption(resultSet.getInt(SORTOPTION_COLUMN));
   }
   
   public void store(Connection connection) throws SQLException {
@@ -99,7 +109,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     QueryUtil queryUtil = QueryUtil.get();
     
     StoreDataObjectSQLBuilder builder = new StoreDataObjectSQLBuilder(queryUtil.getTableName(SiteChatUserSettings.class));
-    
+
     builder
     .put(COMPACT_COLUMN, getCompact())
     .put(USER_ID_COLUMN, getUserId())
@@ -107,6 +117,7 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     .put(TIMESTAMP_FORMAT_COLUMN, getTimestampFormat())
     .put(INVISIBLE_COLUMN, getInvisible())
     .put(EMOJI_COLUMN, getEmoji())
+    .put(SORTOPTION_COLUMN, getSortOption())
     .putPrimaryKey(USER_ID_COLUMN, isNew() ? null : getUserId());
     
     builder.execute(connection, this);
