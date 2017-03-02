@@ -166,6 +166,7 @@ public class SiteChatInboundLogInPacketOperator extends SiteChatInboundPacketOpe
     settingsMap.put("timestamp", userSettings == null ? "" : userSettings.getTimestampFormat());
     settingsMap.put("invisible", userSettings == null ? false : userSettings.getInvisible());
     settingsMap.put("emoji", userSettings == null ? false : userSettings.getEmoji());
+    settingsMap.put("sort", userSettings == null ? 0 : userSettings.getSortOption());
     
     return settingsMap;
   }
