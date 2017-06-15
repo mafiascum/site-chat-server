@@ -595,7 +595,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
   }
   
   public void processChannelCommand(Descriptor descriptor, SiteChatUser user, String message) throws Exception {
-    Pattern pattern = Pattern.compile("^\\/(\\w+)\\s+(.*?)$");
+    Pattern pattern = Pattern.compile("^/(\\w+)\\s+(.*?)$");
     Matcher matcher = pattern.matcher(message);
     
     if(!matcher.find()) {
@@ -614,7 +614,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
       if(targetUser == null)
         return;//TODO: Notify.
       
-      banManager.banUser(descriptor.getIpAddress(), user.getId(), targetUser);
+      banManager.banUser(descriptor.getIpAddress(), user.getId(), targetUser, 48);
     } else if(command.equals("timedban")){
 
       System.out.println(remainder);
