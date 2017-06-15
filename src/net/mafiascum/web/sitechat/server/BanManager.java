@@ -78,6 +78,21 @@ public class BanManager {
     queryUtil.executeConnectionNoResult(provider, connection -> siteChatUtil.addUserToUserGroup(connection, userId, siteChatUtil.BANNED_USERS_GROUP_ID, autoRemoveTime));
     queryUtil.executeConnectionNoResult(provider, connection -> createForumLog(connection, ipAddress, submittedByUserId, "added", "2 days", bannedUser));
   }
+
+  public void banUser(String ipAddress, int submittedByUserId, SiteChatUser bannedUser, int time) throws SQLException {
+
+    int userId = bannedUser.getId();
+    if(isUserBanned(userId) || isBanAdmin(userId))
+      return;
+
+    userIdToBanUserGroupMap.put(userId, createBanUserGroup(userId));
+
+    processor.removeUser(userId);
+
+    long autoRemoveTime = dateUtil.currentTimeSeconds() + (60 * 60 * time);//Hours
+    queryUtil.executeConnectionNoResult(provider, connection -> siteChatUtil.addUserToUserGroup(connection, userId, siteChatUtil.BANNED_USERS_GROUP_ID, autoRemoveTime));
+    queryUtil.executeConnectionNoResult(provider, connection -> createForumLog(connection, ipAddress, submittedByUserId, "added", "2 days", bannedUser));
+  }
   
   public void unbanUser(final String ipAddress, final int submittedByUserId, final SiteChatUser bannedUser) throws SQLException {
     int userId = bannedUser.getId();

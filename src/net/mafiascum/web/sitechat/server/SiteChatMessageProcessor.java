@@ -595,17 +595,18 @@ public class SiteChatMessageProcessor implements SignalHandler{
   }
   
   public void processChannelCommand(Descriptor descriptor, SiteChatUser user, String message) throws Exception {
-    Pattern pattern = Pattern.compile("^/(\\w+)\\s+(.*?)$");
+    Pattern pattern = Pattern.compile("^\\/(\\w+)\\s+(.*?)$");
     Matcher matcher = pattern.matcher(message);
     
-    if(!matcher.find())
+    if(!matcher.find()) {
+      logger.info("Failed to match pattern.");
       return;//TODO: Notify user of invalid command.
-    
+    }
+
     String command = matcher.group(1).toLowerCase();
     String remainder = matcher.group(2);
-    
+
     if(command.equals("ban")) {
-      
       SiteChatUser targetUser = getSiteChatUser(remainder);
       
       if(!banManager.isBanAdmin(user.getId()))
@@ -614,6 +615,28 @@ public class SiteChatMessageProcessor implements SignalHandler{
         return;//TODO: Notify.
       
       banManager.banUser(descriptor.getIpAddress(), user.getId(), targetUser);
+    } else if(command.equals("timedban")){
+
+      System.out.println(remainder);
+
+      Pattern timedPattern = Pattern.compile("^(\\d+)\\s+(.*?)$");
+      Matcher timedMatcher = timedPattern.matcher(remainder);
+
+      if(!timedMatcher.find()) {
+        logger.info("Failed to match pattern.");
+        return;//TODO: Notify user of invalid command.
+      }
+
+      SiteChatUser targetUser = getSiteChatUser(timedMatcher.group(2));
+
+      if(!banManager.isBanAdmin(user.getId()))
+        return;
+      if(targetUser == null)
+        return;//TODO: Notify.
+
+      int time = Integer.parseInt(timedMatcher.group(1));
+      banManager.banUser(descriptor.getIpAddress(), user.getId(), targetUser, time);
+
     }
     else if(command.equals("unban")) {
       SiteChatUser targetUser = getSiteChatUser(remainder);
