@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa3ec5a8-76c7-4e54-8565-d9f0397cbd3c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/BanManager.java" afterPath="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/BanManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java" afterPath="$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/RemoteSystemsTempFiles/bin/" />
@@ -31,21 +29,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SiteChatMessageProcessor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SiteChatMessageProcessor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="607" column="0" lean-forward="true" selection-start-line="607" selection-start-column="0" selection-end-line="607" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="606" column="0" lean-forward="true" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BanManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BanManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/BanManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="64" column="3" lean-forward="false" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+            <state relative-caret-position="150">
+              <caret line="98" column="94" lean-forward="false" selection-start-line="98" selection-start-column="89" selection-end-line="98" selection-end-column="94" />
               <folding>
                 <element signature="e#2016#2017#0" expanded="true" />
                 <element signature="e#2080#2081#0" expanded="true" />
@@ -61,6 +59,7 @@
       <find>animateAvatars</find>
       <find>/ban</find>
       <find>ban</find>
+      <find>system.out</find>
     </findStrings>
     <dirStrings>
       <dir>E:\site-chat-server\src</dir>
@@ -569,12 +568,12 @@
       <workItem from="1486991769789" duration="3641000" />
       <workItem from="1497463806605" duration="598000" />
       <workItem from="1497558284418" duration="733000" />
-      <workItem from="1497559621241" duration="194000" />
+      <workItem from="1497559621241" duration="645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="927000" />
+    <option name="totallyTimeSpent" value="1378000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1033,22 +1032,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="607" column="0" lean-forward="true" selection-start-line="607" selection-start-column="0" selection-end-line="607" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/BanManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="64" column="3" lean-forward="false" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+        <state relative-caret-position="150">
+          <caret line="98" column="94" lean-forward="false" selection-start-line="98" selection-start-column="89" selection-end-line="98" selection-end-column="94" />
           <folding>
             <element signature="e#2016#2017#0" expanded="true" />
             <element signature="e#2080#2081#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/mafiascum/web/sitechat/server/SiteChatMessageProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="606" column="0" lean-forward="true" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

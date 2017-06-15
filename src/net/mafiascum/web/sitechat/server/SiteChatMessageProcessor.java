@@ -599,7 +599,6 @@ public class SiteChatMessageProcessor implements SignalHandler{
     Matcher matcher = pattern.matcher(message);
     
     if(!matcher.find()) {
-      logger.info("Failed to match pattern.");
       return;//TODO: Notify user of invalid command.
     }
 
@@ -616,14 +615,10 @@ public class SiteChatMessageProcessor implements SignalHandler{
       
       banManager.banUser(descriptor.getIpAddress(), user.getId(), targetUser, 48);
     } else if(command.equals("timedban")){
-
-      System.out.println(remainder);
-
       Pattern timedPattern = Pattern.compile("^(\\d+)\\s+(.*?)$");
       Matcher timedMatcher = timedPattern.matcher(remainder);
 
       if(!timedMatcher.find()) {
-        logger.info("Failed to match pattern.");
         return;//TODO: Notify user of invalid command.
       }
 
