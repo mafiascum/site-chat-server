@@ -76,7 +76,7 @@ public class SiteChatInboundSendMessagePacketOperator extends SiteChatInboundSig
     else {
       SiteChatConversationMessage message = processor.recordSiteChatConversationMessage(user.getId(), sendMessagePacket.getSiteChatConversationId(), sendMessagePacket.getRecipientUserId(), sendMessagePacket.getMessage());
       message = message.clone();
-      message.setMessage(stringUtil.escapeHTMLCharacters(message.getMessage()));
+      //message.setMessage(stringUtil.escapeHTMLCharacters(message.getMessage()));
       
       sendOutboundMessage(siteChatConversationWithUserList, user.getUser(), processor, siteChatRecipientUser, message);
     }
