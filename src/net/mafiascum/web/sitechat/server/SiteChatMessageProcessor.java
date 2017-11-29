@@ -353,7 +353,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
       if(siteChatConversationMessage.getId() > lastReceivedSiteChatConversationId) {
 
         siteChatConversationMessage = siteChatConversationMessage.clone();
-        siteChatConversationMessage.setMessage(stringUtil.escapeHTMLCharacters(siteChatConversationMessage.getMessage()));
+        siteChatConversationMessage.setMessage(siteChatConversationMessage.getMessage());
         logger.trace("Adding missed message: " + siteChatConversationMessage.getId());
         messageHistoryToSendToUser.add(siteChatConversationMessage);
       }
