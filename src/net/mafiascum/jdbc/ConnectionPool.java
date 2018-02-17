@@ -160,6 +160,10 @@ public class ConnectionPool {
                 mysqlUsername,
                 mysqlPassword
               );
+              
+              QueryUtil.get().executeStatementNoResult(connectionSource, statement -> {
+                statement.executeUpdate("SET NAMES utf8mb4;");
+              });
             
               connectionSource.setAutoCommit(false);
               ConnectionInvocationHandler connectionInvocationHandler = new ConnectionInvocationHandler(connectionSource);

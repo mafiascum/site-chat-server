@@ -69,7 +69,7 @@ public class SiteChatInboundSendMessagePacketOperator extends SiteChatInboundSig
     }
     
     //Remove out of range characters.
-    sendMessagePacket.setMessage(stringUtil.removeNonBmp(sendMessagePacket.getMessage()));
+    sendMessagePacket.setMessage(sendMessagePacket.getMessage());
     
     if(sendMessagePacket.getMessage().startsWith("/"))
       processor.processChannelCommand(descriptor, user.getUser(), sendMessagePacket.getMessage());
