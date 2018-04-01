@@ -502,4 +502,16 @@ public class MiscUtil extends MSUtil {
     }
     return max;
   }
+  
+  public int getRandomNumberInRange(int low, int high) {
+
+    if(low > high) {
+      //Swap the numbers
+      low ^= high;
+      high ^= low;
+      low ^= high;
+    }
+    
+    return new SecureRandom().nextInt(high - low + 1) + low;
+  }
  }

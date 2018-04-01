@@ -69,14 +69,14 @@ public class SiteChatInboundSendMessagePacketOperator extends SiteChatInboundSig
     }
     
     //Remove out of range characters.
-    sendMessagePacket.setMessage(stringUtil.removeNonBmp(sendMessagePacket.getMessage()));
+    sendMessagePacket.setMessage(sendMessagePacket.getMessage());
     
     if(sendMessagePacket.getMessage().startsWith("/"))
       processor.processChannelCommand(descriptor, user.getUser(), sendMessagePacket.getMessage());
     else {
       SiteChatConversationMessage message = processor.recordSiteChatConversationMessage(user.getId(), sendMessagePacket.getSiteChatConversationId(), sendMessagePacket.getRecipientUserId(), sendMessagePacket.getMessage());
       message = message.clone();
-      message.setMessage(stringUtil.escapeHTMLCharacters(message.getMessage()));
+      //message.setMessage(stringUtil.escapeHTMLCharacters(message.getMessage()));
       
       sendOutboundMessage(siteChatConversationWithUserList, user.getUser(), processor, siteChatRecipientUser, message);
     }
