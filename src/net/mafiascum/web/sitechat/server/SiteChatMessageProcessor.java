@@ -133,7 +133,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
       asyncProcessor.addProcess(new SiteChatRemoveIdleUsersAsyncProcess(1L * 60L * 1000L)); //Every minute.
       asyncProcessor.addProcess(new SiteChatUserListAsyncProcess(30L * 1000L)); //Every 30 seconds.
       asyncProcessor.addProcess(new SiteChatRefreshBansAsyncProcess(5L * 60L * 1000)); //Every 5 minutes.
-      asyncProcessor.addProcess(new SiteChatAnnounceAsyncProcess(30L * 60L * 1000)); //Every 30 minutes.
+      //asyncProcessor.addProcess(new SiteChatAnnounceAsyncProcess(30L * 60L * 1000)); //Every 30 minutes.
       
       //asyncProcessor.addProcess(new SiteChatAnnounceAsyncProcess(5 * 1000));
     });
