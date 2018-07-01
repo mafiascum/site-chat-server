@@ -18,8 +18,8 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
   public static final String ANIMATE_AVATARS_COLUMN = "animate_avatars";
   public static final String TIMESTAMP_FORMAT_COLUMN = "timestamp_format";
   public static final String INVISIBLE_COLUMN = "invisible";
-  public static final String EMOJI_COLUMN = "disable_emoji";
-  public static final String SORTOPTION_COLUMN = "sort_option";
+  public static final String DISABLE_EMOJI_COLUMN = "disable_emoji";
+  public static final String SORT_OPTION_COLUMN = "sort_option";
   
   protected int userId;
   protected boolean compact;
@@ -100,8 +100,8 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     setAnimateAvatars(queryUtil.getIntBoolean(resultSet, ANIMATE_AVATARS_COLUMN));
     setTimestampFormat(resultSet.getString(TIMESTAMP_FORMAT_COLUMN));
     setInvisible(queryUtil.getIntBoolean(resultSet, INVISIBLE_COLUMN));
-    setEmoji(queryUtil.getIntBoolean(resultSet, EMOJI_COLUMN));
-    setSortOption(resultSet.getInt(SORTOPTION_COLUMN));
+    setEmoji(queryUtil.getIntBoolean(resultSet, DISABLE_EMOJI_COLUMN));
+    setSortOption(resultSet.getInt(SORT_OPTION_COLUMN));
   }
   
   public void store(Connection connection) throws SQLException {
@@ -116,8 +116,8 @@ public class SiteChatUserSettings implements IsNewDataObject, DataObject {
     .put(ANIMATE_AVATARS_COLUMN, getAnimateAvatars())
     .put(TIMESTAMP_FORMAT_COLUMN, getTimestampFormat())
     .put(INVISIBLE_COLUMN, getInvisible())
-    .put(EMOJI_COLUMN, getEmoji())
-    .put(SORTOPTION_COLUMN, getSortOption())
+    .put(DISABLE_EMOJI_COLUMN, getEmoji())
+    .put(SORT_OPTION_COLUMN, getSortOption())
     .putPrimaryKey(USER_ID_COLUMN, isNew() ? null : getUserId());
     
     builder.execute(connection, this);

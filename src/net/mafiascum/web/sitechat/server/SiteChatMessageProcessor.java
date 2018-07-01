@@ -18,6 +18,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import net.mafiascum.arguments.CommandLineArguments;
 import net.mafiascum.json.DateUnixTimestampSerializer;
 import net.mafiascum.provider.Provider;
@@ -53,14 +58,8 @@ import net.mafiascum.web.sitechat.server.outboundpacket.SiteChatOutboundUserList
 import net.mafiascum.web.sitechat.server.user.UserData;
 import net.mafiascum.web.sitechat.server.user.UserManager;
 import net.mafiascum.web.sitechat.server.user.UserPacket;
-
-import org.apache.log4j.Logger;
-
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class SiteChatMessageProcessor implements SignalHandler{
   
@@ -100,6 +99,9 @@ public class SiteChatMessageProcessor implements SignalHandler{
       Signal.handle(new Signal("INT"), this);
       Signal.handle(new Signal("TERM"), this);
       
+      logger.info("Setting Up Schema...");
+      siteChatUtil.createTablesIfNecessary(connection);
+      
       logger.info("Loading Site Chat Users...");
       this.userManager = new UserManager(provider, siteChatUtil);
       this.userManager.loadUserMap(siteChatUtil.loadSiteChatUserMap(connection).values(), siteChatUtil.getSiteChatUserSettingsList(connection), siteChatUtil.getUserGroups(connection));
@@ -133,6 +135,9 @@ public class SiteChatMessageProcessor implements SignalHandler{
       asyncProcessor.addProcess(new SiteChatRemoveIdleUsersAsyncProcess(1L * 60L * 1000L)); //Every minute.
       asyncProcessor.addProcess(new SiteChatUserListAsyncProcess(30L * 1000L)); //Every 30 seconds.
       asyncProcessor.addProcess(new SiteChatRefreshBansAsyncProcess(5L * 60L * 1000)); //Every 5 minutes.
+      //asyncProcessor.addProcess(new SiteChatAnnounceAsyncProcess(30L * 60L * 1000)); //Every 30 minutes.
+      
+      //asyncProcessor.addProcess(new SiteChatAnnounceAsyncProcess(5 * 1000));
     });
   }
   
@@ -353,7 +358,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
       if(siteChatConversationMessage.getId() > lastReceivedSiteChatConversationId) {
 
         siteChatConversationMessage = siteChatConversationMessage.clone();
-        siteChatConversationMessage.setMessage(stringUtil.escapeHTMLCharacters(siteChatConversationMessage.getMessage()));
+        siteChatConversationMessage.setMessage(siteChatConversationMessage.getMessage());
         logger.trace("Adding missed message: " + siteChatConversationMessage.getId());
         messageHistoryToSendToUser.add(siteChatConversationMessage);
       }
@@ -775,7 +780,7 @@ public class SiteChatMessageProcessor implements SignalHandler{
     descriptorMap.put(event.getDescriptor().getId(), event.getDescriptor());
   }
   
-  protected void processServerMessageEvent(SiteChatServerMessageEvent event) {
+  public void processServerMessageEvent(SiteChatServerMessageEvent event) {
     
     logger.info("Got text: " + event.getMessage());
     SiteChatInboundPacketSkeleton siteChatInboundPacketSkeleton = null;

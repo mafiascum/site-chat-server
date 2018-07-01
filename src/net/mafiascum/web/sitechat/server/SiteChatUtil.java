@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import net.mafiascum.jdbc.BatchInsertStatement;
 import net.mafiascum.phpbb.log.ForumLog;
 import net.mafiascum.phpbb.usergroup.UserGroup;
@@ -15,8 +17,6 @@ import net.mafiascum.util.MSUtil;
 import net.mafiascum.web.sitechat.server.conversation.SiteChatConversation;
 import net.mafiascum.web.sitechat.server.conversation.SiteChatConversationMessage;
 import net.mafiascum.web.sitechat.server.conversation.SiteChatConversationType;
-
-import org.apache.log4j.Logger;
 
 public class SiteChatUtil extends MSUtil {
 
@@ -238,5 +238,59 @@ public class SiteChatUtil extends MSUtil {
   
   public List<UserGroup> getUserGroups(Connection connection) throws SQLException {
     return queryUtil.retrieveDataObjectList(connection, null, UserGroup.class);
+  }
+  
+  public void createTablesIfNecessary(Connection connection) throws SQLException {
+    String sql;
+    
+    sql = "CREATE TABLE IF NOT EXISTS " + queryUtil.getEscapedTableName(SiteChatUserSettings.class) + " (" + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.USER_ID_COLUMN) + " mediumint(8) unsigned NOT NULL," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.COMPACT_COLUMN) + " tinyint(3) unsigned NOT NULL," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.ANIMATE_AVATARS_COLUMN) + " tinyint(3) unsigned NOT NULL," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.TIMESTAMP_FORMAT_COLUMN) + " varchar(32) COLLATE utf8_bin NOT NULL DEFAULT ''," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.INVISIBLE_COLUMN) + " tinyint(3) unsigned NOT NULL DEFAULT '0'," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.DISABLE_EMOJI_COLUMN) + " tinyint(3) unsigned NOT NULL DEFAULT '0'," + 
+          sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.SORT_OPTION_COLUMN) + " tinyint(3) unsigned NOT NULL DEFAULT '0'," + 
+          "  PRIMARY KEY (" + sqlUtil.escapeQuoteColumnName(SiteChatUserSettings.USER_ID_COLUMN) + ")" + 
+          " ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+    
+    queryUtil.executeUpdate(connection, sql);
+    
+    sql = "CREATE TABLE IF NOT EXISTS " + queryUtil.getEscapedTableName(SiteChatIgnore.class) + " (" + 
+        sqlUtil.escapeQuoteColumnName(SiteChatIgnore.ID_COLUMN) + " int(11) unsigned NOT NULL AUTO_INCREMENT," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatIgnore.USER_ID_COLUMN) + " mediumint(8) unsigned NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatIgnore.IGNORED_USER_ID_COLUMN) + " mediumint(8) unsigned NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatIgnore.CREATED_DATETIME_COLUMN) + " datetime NOT NULL," + 
+        "  PRIMARY KEY (" + sqlUtil.escapeQuoteColumnName(SiteChatIgnore.ID_COLUMN) + ")," + 
+        "  UNIQUE KEY `user_id` (" + sqlUtil.escapeQuoteColumnName(SiteChatIgnore.USER_ID_COLUMN) + "," + sqlUtil.escapeQuoteColumnName(SiteChatIgnore.IGNORED_USER_ID_COLUMN) + ")" + 
+        ") ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+    
+    queryUtil.executeUpdate(connection, sql);
+    
+    sql = "CREATE TABLE IF NOT EXISTS " + queryUtil.getEscapedTableName(SiteChatConversationMessage.class) + " (" + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.ID_COLUMN) + " int(11) unsigned NOT NULL AUTO_INCREMENT," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.SITE_CHAT_CONVERSATION_ID_COLUMN) + " int(11) unsigned DEFAULT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.USER_ID_COLUMN) + " mediumint(8) unsigned NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.CREATED_DATETIME_COLUMN) + " datetime NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.MESSAGE_COLUMN) + " varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.RECIPIENT_USER_ID_COLUMN) + " mediumint(8) unsigned DEFAULT NULL," + 
+        "  PRIMARY KEY (" + sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.ID_COLUMN) + ")," + 
+        "  KEY `user_id` (" + sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.USER_ID_COLUMN) + ")," + 
+        "  KEY `site_chat_conversation_id` (" + sqlUtil.escapeQuoteColumnName(SiteChatConversationMessage.SITE_CHAT_CONVERSATION_ID_COLUMN) + ")" + 
+        ") ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+    
+    queryUtil.executeUpdate(connection, sql);
+    
+    sql = "CREATE TABLE IF NOT EXISTS " + queryUtil.getEscapedTableName(SiteChatConversation.class) + " (" + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversation.ID_COLUMN) + " int(11) unsigned NOT NULL AUTO_INCREMENT," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversation.NAME_COLUMN) + " varchar(40) COLLATE utf8_bin NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversation.CREATED_DATETIME_COLUMN) + " datetime NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversation.CREATED_BY_USER_ID_COLUMN) + " mediumint(8) unsigned NOT NULL," + 
+        sqlUtil.escapeQuoteColumnName(SiteChatConversation.PASSWORD_COLUMN) + " varchar(40) COLLATE utf8_bin DEFAULT NULL," + 
+        "  PRIMARY KEY (" + sqlUtil.escapeQuoteColumnName(SiteChatConversation.ID_COLUMN) + ")," + 
+        "  UNIQUE KEY `name` (" + sqlUtil.escapeQuoteColumnName(SiteChatConversation.NAME_COLUMN) + ")" + 
+        ") ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+    
+    queryUtil.executeUpdate(connection, sql);
   }
 }
