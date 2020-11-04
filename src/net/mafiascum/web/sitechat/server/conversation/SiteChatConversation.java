@@ -16,6 +16,12 @@ import net.mafiascum.web.misc.DataObjectWithIntID;
 @Table(tableName="siteChatConversation")
 public class SiteChatConversation extends DataObjectWithIntID implements DataObject, BatchInsertable {
 
+  public static final String ID_COLUMN = "id";
+  public static final String NAME_COLUMN = "name";
+  public static final String CREATED_DATETIME_COLUMN = "created_datetime";
+  public static final String CREATED_BY_USER_ID_COLUMN = "created_by_user_id";
+  public static final String PASSWORD_COLUMN = "password";
+  
   protected Date createdDatetime;
   protected int createdByUserId;
   protected String name;
@@ -73,11 +79,11 @@ public class SiteChatConversation extends DataObjectWithIntID implements DataObj
   
   public void loadFromResultSet(ResultSet resultSet) throws SQLException {
     
-    setId(resultSet.getInt("id"));
-    setName(resultSet.getString("name"));
-    setCreatedDatetime(resultSet.getTimestamp("created_datetime"));
-    setCreatedByUserId(resultSet.getInt("created_by_user_id"));
-    setPassword(resultSet.getString("password"));
+    setId(resultSet.getInt(ID_COLUMN));
+    setName(resultSet.getString(NAME_COLUMN));
+    setCreatedDatetime(resultSet.getTimestamp(CREATED_DATETIME_COLUMN));
+    setCreatedByUserId(resultSet.getInt(CREATED_BY_USER_ID_COLUMN));
+    setPassword(resultSet.getString(PASSWORD_COLUMN));
   }
   
   public void store(Connection connection) throws SQLException {
@@ -86,11 +92,11 @@ public class SiteChatConversation extends DataObjectWithIntID implements DataObj
       
       StoreDataObjectSQLBuilder builder = new StoreDataObjectSQLBuilder(QueryUtil.get().getTableName(getClass()));
 
-      builder.put("name", getName())
-             .put("created_datetime", getCreatedDatetime())
-             .put("created_by_user_id", getCreatedByUserId())
-             .put("password", getPassword())
-             .putPrimaryKey("id", isNew() ? null : getId());
+      builder.put(NAME_COLUMN, getName())
+             .put(CREATED_DATETIME_COLUMN, getCreatedDatetime())
+             .put(CREATED_BY_USER_ID_COLUMN, getCreatedByUserId())
+             .put(PASSWORD_COLUMN, getPassword())
+             .putPrimaryKey(ID_COLUMN, isNew() ? null : getId());
       
       builder.execute(statement, this);
       
@@ -100,11 +106,11 @@ public class SiteChatConversation extends DataObjectWithIntID implements DataObj
   
   public void setBatchInsertStatementColumns(BatchInsertStatement batchInsertStatement) throws SQLException {
     
-    batchInsertStatement.addField("id");
-    batchInsertStatement.addField("name");
-    batchInsertStatement.addField("created_datetime");
-    batchInsertStatement.addField("created_by_user_id");
-    batchInsertStatement.addField("password");
+    batchInsertStatement.addField(ID_COLUMN);
+    batchInsertStatement.addField(NAME_COLUMN);
+    batchInsertStatement.addField(CREATED_DATETIME_COLUMN);
+    batchInsertStatement.addField(CREATED_BY_USER_ID_COLUMN);
+    batchInsertStatement.addField(PASSWORD_COLUMN);
   }
   
   public void addToBatchInsertStatement(BatchInsertStatement batchInsertStatement) throws SQLException {

@@ -29,7 +29,6 @@ import net.mafiascum.provider.Provider;
 import net.mafiascum.util.MiscUtil;
 import net.mafiascum.util.QueryUtil;
 import net.mafiascum.util.StringUtil;
-import net.mafiascum.web.sitechat.async.SiteChatAnnounceAsyncProcess;
 import net.mafiascum.web.sitechat.async.SiteChatAsyncProcessor;
 import net.mafiascum.web.sitechat.async.SiteChatRefreshBansAsyncProcess;
 import net.mafiascum.web.sitechat.async.SiteChatRemoveIdleUsersAsyncProcess;
@@ -99,6 +98,9 @@ public class SiteChatMessageProcessor implements SignalHandler{
       //Add handler for interruption signal.
       Signal.handle(new Signal("INT"), this);
       Signal.handle(new Signal("TERM"), this);
+      
+      logger.info("Setting Up Schema...");
+      siteChatUtil.createTablesIfNecessary(connection);
       
       logger.info("Loading Site Chat Users...");
       this.userManager = new UserManager(provider, siteChatUtil);
