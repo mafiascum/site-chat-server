@@ -1,13 +1,13 @@
 package net.mafiascum.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.beanutils.PropertyUtils;
+
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.security.SecureRandom;
@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -280,15 +279,17 @@ public class MiscUtil extends MSUtil {
    * 
    * @param url A path specifying the resource location within the classpath.
    */
-  public Properties loadPropertiesResource (String url) throws Exception {
-    InputStream ins = getResourceStream(url);
-    Properties properties = new Properties();
-    properties.load(ins);
-    ins.close();
-      
-    return properties;
+  public Configuration loadPropertiesResource (String url) throws Exception {
+    Parameters params = new Parameters();
+    URL propertiesFileUrl = new URL(url);
+
+    FileBasedConfigurationBuilder<FileBasedConfiguration> builder =
+            new FileBasedConfigurationBuilder<FileBasedConfiguration>(PropertiesConfiguration.class)
+                    .configure(params.fileBased().setURL(propertiesFileUrl));
+
+    return builder.getConfiguration();
   }
-  
+
   public Short[] parseIPAddress (String ipAddress, boolean returnNullWhenNoComponents) {
 
     Short[] components = new Short[4];

@@ -10,6 +10,7 @@ import net.mafiascum.jdbc.ConnectionPool;
 import net.mafiascum.util.MiscUtil;
 import net.mafiascum.util.StringUtil;
 
+import org.apache.commons.configuration2.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,13 +48,13 @@ public class Provider {
   public void loadConfiguration(String configurationFilePath) throws Exception {
     
     logger.info("CONFIG PATH: " + configurationFilePath);
-    Properties properties = miscUtil.loadPropertiesResource(configurationFilePath);
-    
-    mysqlUrl = properties.getProperty("Mysql.Main.Url");
-    mysqlUsername = properties.getProperty("Mysql.Main.Username");
-    mysqlPassword = properties.getProperty("Mysql.Main.Password");
-    maxConnections = Integer.valueOf(properties.getProperty("Mysql.Main.MaxConnections"));
-    environment = Environment.getEnumByAbbreviatedName(properties.getProperty("Environment"));
+    Configuration config = miscUtil.loadPropertiesResource(configurationFilePath);
+
+    mysqlUrl = config.getString("Mysql.Main.Url");
+    mysqlUsername = config.getString("Mysql.Main.Username");
+    mysqlPassword = config.getString("Mysql.Main.Password");
+    maxConnections = config.getInt("Mysql.Main.MaxConnections");
+    environment = Environment.getEnumByAbbreviatedName(config.getString("Environment"));
     
     if(environment == null)
       environment = Environment.prod;
