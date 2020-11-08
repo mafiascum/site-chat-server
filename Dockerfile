@@ -1,11 +1,19 @@
-FROM openjdk:8u111-jdk-alpine
-MAINTAINER ccatlett2000@mctherealm.net
+FROM gradle:6.7-jdk11 as build
+MAINTAINER cciccia@gmail.com
 
-RUN apk add --no-cache git apache-ant
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN ./gradlew build
 
-WORKDIR /usr/src/chat/
-ADD . .
-RUN ant -f SiteChatServer.xml compile
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+RUN mkdir /app
+RUN mkdir /app/config
+
+COPY --from=build /home/gradle/src/build/libs/site-chat-server.jar /app/site-chat-server.jar
+
+COPY ./ServerConfig.txt /app/config
 
 EXPOSE 4241
-CMD java -Xms1024m -Xmx2048m -cp '/usr/src/chat/lib/*' net.mafiascum.web.sitechat.server.SiteChatServer --verbose -p 4241 -d file:/usr/src/chat/secret/
+CMD java -Xms1024m -Xmx2048m -jar /app/site-chat-server.jar --verbose -p 4241 -d file:/app/config/
+

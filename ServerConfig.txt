@@ -1,0 +1,5 @@
+Mysql.Main.Url=jdbc:mysql://${env:PHPBB_DATABASE_HOST}/${env:PHPBB_DATABASE_NAME}?useUnicode=yes&characterEncoding=UTF-8&jdbcCompliantTruncation=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
+Mysql.Main.Username=${env:PHPBB_DATABASE_USER}
+Mysql.Main.Password=${env:PHPBB_DATABASE_PASSWORD}
+Mysql.Main.MaxConnections=6
+IsWindows=false
